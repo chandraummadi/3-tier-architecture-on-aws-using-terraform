@@ -1,16 +1,23 @@
-output "instance_id" {
-  value = aws_instance.this[0].id
+output "instance_ids" {
+  description = "Map of instance IDs by instance name"
+  value = {
+    for k, v in aws_instance.this :
+    k => v.id
+  }
 }
 
-output "private_ip" {
-  value = aws_instance.this[0].private_ip
+output "private_ips" {
+  description = "Map of private IPs by instance name"
+  value = {
+    for k, v in aws_instance.this :
+    k => v.private_ip
+  }
 }
 
-output "public_ip" {
-  value = aws_instance.this[0].public_ip
-  condition = aws_instance.this[0].associate_public_ip_address
-}
-
-output "arn" {
-  value = aws_instance.this[0].arn
+output "public_ips" {
+  description = "Map of public IPs by instance name"
+  value = {
+    for k, v in aws_instance.this :
+    k => v.public_ip
+  }
 }

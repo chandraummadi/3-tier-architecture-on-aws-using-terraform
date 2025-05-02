@@ -1,154 +1,52 @@
-## Single instance (Linux EC2 example):
-
-instances = [
-  {
-    name                    = "dev-instance-1"
-    instance_spec           = { ami = "ami-12345678" }
-    instance_type           = "t3.micro"
-    subnet_id               = "subnet-abcdef12"
-    vpc_security_group_ids  = ["sg-12345678"]
-    key_name                = "dev-key"
-    user_data               = "echo Hello World"
-    user_data_base64        = ""
-    associate_public_ip_address = true
-    monitoring              = false
-    iam_instance_profile    = ""
-    create_iam_instance_profile = false
-    tags                    = {}
-    instance_tags           = {}
-    volume_tags             = {}
-    enable_volume_tags      = true
-    root_block_device       = []
-    ebs_block_device        = []
-    cpu_core_count          = 1
-    cpu_threads_per_core    = 1
-    enclave_options_enabled = false
-    metadata_options        = {}
-    private_ip              = ""
-    secondary_private_ips   = []
-    ipv6_address_count      = 0
-    ipv6_addresses          = []
+instance_specs = {
+  app-server-1 = {
+    ami                             = "ami-1234567890abcdef0"
+    instance_type                   = "t3.micro"
+    subnet_id                       = "subnet-abc123"
+    key_name                        = "my-key"
+    associate_public_ip_address     = true
+    private_ip                      = null
+    secondary_private_ips           = []
+    ipv6_address_count              = null
+    ipv6_addresses                  = []
+    vpc_security_group_ids          = ["sg-0123456789abcdef0"]
+    user_data                       = ""
+    user_data_base64                = null
+    user_data_replace_on_change     = false
+    availability_zone               = null
+    monitoring                      = false
+    get_password_data               = false
+    iam_instance_profile            = null
+    ebs_optimized                   = false
+    disable_api_termination         = false
+    disable_api_stop                = false
+    instance_initiated_shutdown_behavior = "stop"
+    placement_group                 = null
+    tenancy                         = "default"
+    host_id                         = null
+    cpu_credits                     = "standard"
+    cpu_core_count                  = null
+    cpu_threads_per_core            = null
+    capacity_reservation_specification = {}
+    root_block_device               = []
+    ebs_block_device                = []
+    metadata_options                = {}
+    enclave_options_enabled         = false
+    source_dest_check               = true
+    timeouts = {
+      create = "10m"
+      update = "10m"
+      delete = "10m"
+    }
+    tags = {
+      Environment = "dev"
+      Name        = "app-server-1"
+    }
+    depends_on = []
   }
-]
+}
 
-
-############################################
-Multiple instances (3 Linux + 2 Windows):
-######################################
-
-instances = [
-  # Linux Instances
-  {
-    name                    = "dev-linux-instance-1"
-    instance_spec           = { ami = "ami-linux-12345678" }
-    instance_type           = "t3.micro"
-    subnet_id               = "subnet-abcdef12"
-    vpc_security_group_ids  = ["sg-12345678"]
-    key_name                = "dev-key"
-    user_data               = "echo Hello Linux"
-    user_data_base64        = ""
-    associate_public_ip_address = true
-    monitoring              = false
-    iam_instance_profile    = ""
-    create_iam_instance_profile = false
-    tags                    = {}
-    instance_tags           = {}
-    volume_tags             = {}
-    enable_volume_tags      = true
-    root_block_device       = []
-    ebs_block_device        = []
-    cpu_core_count          = 1
-    cpu_threads_per_core    = 1
-    enclave_options_enabled = false
-    metadata_options        = {}
-    private_ip              = ""
-    secondary_private_ips   = []
-    ipv6_address_count      = 0
-    ipv6_addresses          = []
-  },
-  {
-    name                    = "dev-linux-instance-2"
-    instance_spec           = { ami = "ami-linux-12345678" }
-    instance_type           = "t3.micro"
-    subnet_id               = "subnet-abcdef12"
-    vpc_security_group_ids  = ["sg-12345678"]
-    key_name                = "dev-key"
-    user_data               = "echo Hello Linux"
-    user_data_base64        = ""
-    associate_public_ip_address = true
-    monitoring              = false
-    iam_instance_profile    = ""
-    create_iam_instance_profile = false
-    tags                    = {}
-    instance_tags           = {}
-    volume_tags             = {}
-    enable_volume_tags      = true
-    root_block_device       = []
-    ebs_block_device        = []
-    cpu_core_count          = 1
-    cpu_threads_per_core    = 1
-    enclave_options_enabled = false
-    metadata_options        = {}
-    private_ip              = ""
-    secondary_private_ips   = []
-    ipv6_address_count      = 0
-    ipv6_addresses          = []
-  },
-  # Windows Instances
-  {
-    name                    = "dev-windows-instance-1"
-    instance_spec           = { ami = "ami-windows-12345678" }
-    instance_type           = "t3.micro"
-    subnet_id               = "subnet-abcdef12"
-    vpc_security_group_ids  = ["sg-12345678"]
-    key_name                = "dev-key"
-    user_data               = "echo Hello Windows"
-    user_data_base64        = ""
-    associate_public_ip_address = true
-    monitoring              = false
-    iam_instance_profile    = ""
-    create_iam_instance_profile = false
-    tags                    = {}
-    instance_tags           = {}
-    volume_tags             = {}
-    enable_volume_tags      = true
-    root_block_device       = []
-    ebs_block_device        = []
-    cpu_core_count          = 1
-    cpu_threads_per_core    = 1
-    enclave_options_enabled = false
-    metadata_options        = {}
-    private_ip              = ""
-    secondary_private_ips   = []
-    ipv6_address_count      = 0
-    ipv6_addresses          = []
-  },
-  {
-    name                    = "dev-windows-instance-2"
-    instance_spec           = { ami = "ami-windows-12345678" }
-    instance_type           = "t3.micro"
-    subnet_id               = "subnet-abcdef12"
-    vpc_security_group_ids  = ["sg-12345678"]
-    key_name                = "dev-key"
-    user_data               = "echo Hello Windows"
-    user_data_base64        = ""
-    associate_public_ip_address = true
-    monitoring              = false
-    iam_instance_profile    = ""
-    create_iam_instance_profile = false
-    tags                    = {}
-    instance_tags           = {}
-    volume_tags             = {}
-    enable_volume_tags      = true
-    root_block_device       = []
-    ebs_block_device        = []
-    cpu_core_count          = 1
-    cpu_threads_per_core    = 1
-    enclave_options_enabled = false
-    metadata_options        = {}
-    private_ip              = ""
-    secondary_private_ips   = []
-    ipv6_address_count      = 0
-    ipv6_addresses          = []
-  }
-]
+common_tags = {
+  Project     = "Demo"
+  Environment = "dev"
+}
